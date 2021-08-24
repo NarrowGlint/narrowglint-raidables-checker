@@ -1,5 +1,7 @@
 --NarrowGlints Raidable Checker
 
+include("autorun/config.lua")
+
 SWEP.PrintName = "Raidables Checker"
 SWEP.Author = "NarrowGlint"
 SWEP.Category = "NarrowGlint"
@@ -60,34 +62,26 @@ function SWEP:RaidableCheck()
 
 -- Im new to Lua, sorry there is probably a better way to do this.
 
-	for k,v in ipairs(boxEnts) do
-
-		local className = v:GetClass()
-
-		if string.StartWith(className, "sprinter_") then
-			
-			owner:ChatPrint(className .. foundMessage)
+	for key, className in ipairs(raidables) do
 		
-		elseif string.StartWith(className, "zmlab2") then
-
-			if className == "zmlab2_npc" or className == "zmlab2_equipment" then
-
-				do_nothing = true
+		for i, v in ipairs(boxEnts) do
+			
+			if v:GetClass() == className then
+			
+				owner:ChatPrint(className .. " was found within the range!")
 			
 			else
-
-				owner:ChatPrint(className .. foundMessage) 
-			end
 			
-		else
-			no_found_entities = true
+				no_ents_found = true
+			
+			end
 		end
-
+	end
+	
+	if no_ents_found then
+		owner:ChatPrint("No more raidables were found within the range!")
 	end
 
-	if no_found_entities == true then
-		owner:ChatPrint(failMessage)
-	end
 end
 
 -- This is more fun
