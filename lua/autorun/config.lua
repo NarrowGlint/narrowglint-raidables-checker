@@ -3,7 +3,7 @@
 -- Make sure to add them as this format
 
 
-local raidables = {
+raidables = {
 	"item_ammo_357",
 	"item_suit",
 }
